@@ -7,6 +7,8 @@ int main(void)
 		if(sscanf(a, "%i%c", &num, &b) == 1)
 			puts("Valid");
 		else
-			puts("Invalid");
+		{
+			puts((b == 'L' || b == 'l') ? "Valid" : "Invalid");
+		}
 	return 0;
 }
