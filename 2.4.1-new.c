@@ -25,7 +25,10 @@ _Bool is_valid(const char *str)
 				return 0;
 			for (int i = 2, end = strlen(str); i < end; i++)
 				if (!isxdigit(str[i]))
-					return 0;
+					if (str[i] == 'l' || str[i] == 'L' && str[i + 1] == '\0')
+						return 1;
+					else
+						return 0;
 		}
 		else
 		{
@@ -33,7 +36,10 @@ _Bool is_valid(const char *str)
 				return 1;
 			for (int i = 1, end = strlen(str); i < end; i++)
 				if (!isodigit(str[i]))
-					return 0;
+					if (str[i] == 'l' || str[i] == 'L' && str[i + 1] == '\0')
+						return 1;
+					else
+						return 0;
 		}
 		return 1;
 	}
@@ -41,9 +47,14 @@ _Bool is_valid(const char *str)
 	{
 		for (int i = 0, end = strlen(str); i < end; i++)
 			if(!isdigit(str[i]))
-				return 0;
+				if (str[i] == 'l' || str[i] == 'L' && str[i + 1] == '\0')
+					return 1;
+				else
+					return 0;
 	}
+	else if (str[1] == 'l' || str[1] == 'L' && str[2] == '\0')
+		return 1;
 	else
 		return 0;
 	return 1;
-}	
+}

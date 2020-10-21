@@ -6,6 +6,7 @@ int main()
 	printf("本程序判断合数，请输入大于1的整数，以Ctrl+Z结束\n");
 	while (scanf("%d", &x) != EOF)
 	{
+		flag = 0;
 		for (i = 2, k = x >> 1; i <= k && flag == 0; i++)
 			if (!(x % i))
 				flag = 1;
@@ -16,4 +17,3 @@ int main()
 	}
 	return 0;
 }
-
