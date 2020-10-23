@@ -1,11 +1,11 @@
 #include <stdio.h>
 int combination(int m ,int n) // Calculate C(m, n)
 {
-	int numerator = 1, denominator = 1; // 
+	int numerator = 1, denominator = 1;
 	if (m == 0 || n == 0)
 		return 1;
 	if (m < 2 * n)
-		n = m - n;
+		n = m - n;  // To ensure n < m / 2.
 	for (int i = 1; i <= n; i++)
 	{
 		numerator *= m--;
