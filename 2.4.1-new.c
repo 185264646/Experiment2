@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
-#define isodigit(x) (isdigit(x) && (x) != '8' && (x) != '9')
+#include <ctype.h>
+#define isodigit(x) (isdigit(x) && (x) != '8' && (x) != '9'
+static is_valid_suffix(const char *);  // receive a const char * parameter which points to the first charactor of the suffix string.
 _Bool is_valid(const char *);
 int main(void)
 {
@@ -58,3 +60,45 @@ _Bool is_valid(const char *str)
 		return 0;
 	return 1;
 }
+
+static _Bool is_valid_suffix(const char *suffix)
+{	
+	for (int i = 0; i < 3 && str[i]; i++)
+		str[i] = tolower(str[i]);
+	switch (suffix[0])
+	{
+		case 'u':
+			switch (suffix[1])
+			{
+				case 'l':
+					switch (suffix[2])
+					{
+						case 'l': return suffix[3] == '\0' ? 1 : 0
+						case '\0': return 1;
+						default: return 0;
+					}
+				
+				case '\0':
+					return 1;
+				
+				default: return 0;
+			}
+			
+		case 'l':
+			switch (suffix[1])
+			{
+				case 'l':
+					switch (suffix[2])
+					{
+						case 'u': return suffix[3] == '\0' ? 1 : 0;
+						case '\0': return 1;
+						default: return 0;
+					}
+				
+				case 'u':
+					return suffix[2] == '\0' ? 1 : 0;
+				
+				case '\0':
+					return 1;
+			}
+	}
