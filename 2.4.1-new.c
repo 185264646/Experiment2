@@ -1,3 +1,4 @@
+// Still couldn't handle situations like 0UlL(should be invalid).
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
@@ -19,12 +20,11 @@ int main(void)
 
 _Bool is_valid(const char *str)
 {
-	if(str[0] == '0')
+	if(str[0] == '0')  // Might be octal or hexadecimal number
 	{
-		if(str[1] == 'x' || str[1] == 'X')
+		if(str[1] == 'x' || str[1] == 'X') // Might be hexadecimal
 		{
-			if (strlen(str) == 2)
-				return 0;
+			if (str[2] == '\0') return 0; // A string like "0x" or "0X" is obviously invalid.
 			for (int i = 2, end = strlen(str); i < end; i++)
 				if (!isxdigit(str[i]))
 					if (is_valid_suffix(str + i))
@@ -32,10 +32,8 @@ _Bool is_valid(const char *str)
 					else
 						return 0;
 		}
-		else
+		else  // Might be octal 
 		{
-			if (strlen(str) == 1)
-				return 1;
 			for (int i = 1, end = strlen(str); i < end; i++)
 				if (!isodigit(str[i]))
 					if (is_valid_suffix(str + i))
@@ -45,7 +43,7 @@ _Bool is_valid(const char *str)
 		}
 		return 1;
 	}
-	else if(isdigit(str[0]))
+	else if(isdigit(str[0]))  // might be decimal
 	{
 		for (int i = 0, end = strlen(str); i < end; i++)
 			if(!isdigit(str[i]))
@@ -54,7 +52,7 @@ _Bool is_valid(const char *str)
 				else
 					return 0;
 	}
-	else if (is_valid_suffix(str + 1))
+	else if (is_valid_suffix(str + 1)) // a single 0 with suffix.
 		return 1;
 	else
 		return 0;
@@ -103,5 +101,5 @@ static _Bool is_valid_suffix(const char *suffix)
 					return 1;
 			}
 	}
-	return 0;
+	return 1;
 }
