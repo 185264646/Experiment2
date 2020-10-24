@@ -101,5 +101,5 @@ static _Bool is_valid_suffix(const char *suffix)
 					return 1;
 			}
 	}
-	return 1;
+	return 0;
 }
